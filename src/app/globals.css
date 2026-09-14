@@ -1,0 +1,261 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  --brand-green: #1F2A44;
+  --brand-green-light: #3F506F;
+  --brand-gold: #B76E4C;
+  --brand-gold-light: #D6A07E;
+  --brand-cream: #F7EFE5;
+  --brand-cream-dark: #E8EEF0;
+  --brand-sage: #DDE6E8;
+  --brand-clay: #8A4A3A;
+  --brand-text: #171C24;
+  --brand-muted: #667085;
+}
+
+@theme inline {
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-light: var(--brand-green-light);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-cream-dark: var(--brand-cream-dark);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-clay: var(--brand-clay);
+  --font-arabic: "IBM Plex Sans Arabic", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "IBM Plex Sans Arabic", Arial, sans-serif;
+  background-color: var(--brand-cream);
+  color: var(--brand-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--brand-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-gold);
+  border-radius: 3px;
+}
+
+/* Smooth animations */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for CTA */
+@keyframes pulse-gold {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(183, 110, 76, 0.34);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(183, 110, 76, 0);
+  }
+}
+
+.cta-pulse {
+  animation: pulse-gold 2s infinite;
+}
+
+/* Star rating */
+.stars {
+  color: #f59e0b;
+}
+
+/* Arabic number display */
+.price-display {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--brand-green);
+}
+
+/* Sticky header */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Product card hover */
+.product-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(27, 67, 50, 0.15);
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+/* Trust badge */
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--brand-green);
+}
+
+/* Ingredient card */
+.ingredient-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(27, 67, 50, 0.1);
+  transition: border-color 0.2s;
+}
+.ingredient-card:hover {
+  border-color: var(--brand-gold);
+}
+
+/* Review card */
+.review-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(27, 67, 50, 0.08);
+}
+
+/* Form inputs */
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background: white;
+  direction: rtl;
+  text-align: right;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--brand-green);
+}
+.form-input.error {
+  border-color: #ef4444;
+}
+
+/* CTA button */
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-green-light) 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 28px;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(27, 67, 50, 0.3);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--brand-green);
+  border: 2px solid var(--brand-green);
+  border-radius: 14px;
+  padding: 14px 28px;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+.btn-secondary:hover {
+  background: var(--brand-green);
+  color: white;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+  color: var(--brand-green);
+  border: none;
+  border-radius: 14px;
+  padding: 16px 28px;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(183, 110, 76, 0.34);
+}

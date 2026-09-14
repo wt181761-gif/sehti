@@ -1,0 +1,2 @@
+Order ID,Order Number,Created At,Customer Name,Phone Local,Phone E164,Products,Normal Items Total MAD,Upsell Product,Upsell Total MAD,Order Total MAD,Currency,Status,Source,Page URL,Event ID,Meta Sent,TikTok Sent,Notes
+example-order-id,1001,2026-09-11T12:00:00Z,محمد العلوي,0612345678,+212612345678,مسحوق المسواك الطبيعي ضد حساسية الأسنان - 2 قطعة - 279 درهم,279,خليط الأعشاب الهاضمة ضد الانتفاخ - 99 درهم,99,378,MAD,new,sehti.online,https://sehti.online/products/miswak-natural-powder-sensitive-teeth,purchase_example_uuid,yes,yes,Example row - delete before launch
