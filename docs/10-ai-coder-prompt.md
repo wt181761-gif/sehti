@@ -10,6 +10,7 @@ Read and follow all docs in /docs before coding:
 - docs/README.md
 - docs/01-brand-positioning-icp.md
 - docs/02-site-map-ux-cro.md
+- docs/FRONTEND.md
 - docs/03-frontend-architecture.md
 - docs/04-backend-architecture-fastapi.md
 - docs/05-products-offers-aov.md

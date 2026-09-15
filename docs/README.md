@@ -41,6 +41,7 @@ Backend: Python FastAPI, PostgreSQL, migrations on startup, order creation, shee
 
 - `01-brand-positioning-icp.md`: Brand identity, positioning, Moroccan trust psychology, ICP.
 - `02-site-map-ux-cro.md`: Full page map, funnels, cart drawer, checkout popup, thank-you CRO.
+- `FRONTEND.md`: Dedicated frontend build specification.
 - `03-frontend-architecture.md`: Next.js architecture, components, libraries, design rules.
 - `04-backend-architecture-fastapi.md`: FastAPI service, DB schema, endpoints, migrations, validation.
 - `05-products-offers-aov.md`: Products, offers, bundles, cart logic, upsell decision tree.
