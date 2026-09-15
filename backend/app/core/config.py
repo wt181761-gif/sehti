@@ -24,6 +24,8 @@ class Settings(BaseSettings):
 
     CORS_ORIGINS: str = "https://sehti.online,http://localhost:3000"
 
+    TEST_PHONE_NUMBER: str = ""
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]

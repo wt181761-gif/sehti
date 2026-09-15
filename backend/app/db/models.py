@@ -71,6 +71,68 @@ class OrderDraft(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow)
 
 
+class TrackingEvent(Base):
+    """
+    Every pixel/CAPI event fired for an order.
+    Useful for debugging dedup, retries, and pixel health.
+    """
+    __tablename__ = "tracking_events"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    order_id: Mapped[str | None] = mapped_column(String(36), ForeignKey("orders.id", ondelete="SET NULL"), nullable=True)
+    event_name: Mapped[str] = mapped_column(String(50), nullable=False)  # PageView, AddToCart, Purchase, etc.
+    event_id: Mapped[str] = mapped_column(Text, nullable=False)  # dedup key shared with browser pixel
+    platform: Mapped[str] = mapped_column(String(20), nullable=False)  # "meta" | "tiktok"
+    source: Mapped[str] = mapped_column(String(20), nullable=False)  # "browser" | "server"
+    payload_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)  # full request/response for debugging
+    status: Mapped[str] = mapped_column(String(20), nullable=False, default="sent")  # sent | failed | retried
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    phone_hash: Mapped[str | None] = mapped_column(Text, nullable=True)  # hashed phone for matching
+    ip_address: Mapped[str | None] = mapped_column(Text, nullable=True)
+    user_agent: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow)
+
+    order: Mapped["Order | None"] = relationship("Order", backref="tracking_events")
+
+
+class OrderStatusHistory(Base):
+    """
+    Tracks every status change on an order.
+    Critical for COD stores: new -> confirmed -> shipped -> delivered / returned.
+    """
+    __tablename__ = "order_status_history"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    order_id: Mapped[str] = mapped_column(String(36), ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
+    old_status: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    new_status: Mapped[str] = mapped_column(String(50), nullable=False)
+    changed_by: Mapped[str] = mapped_column(String(50), nullable=False, default="system")  # system | admin | webhook
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow)
+
+    order: Mapped["Order"] = relationship("Order", backref="status_history")
+
+
+class DailyStat(Base):
+    """
+    Aggregated daily stats for quick dashboard / reporting.
+    One row per day.
+    """
+    __tablename__ = "daily_stats"
+
+    date_str: Mapped[str] = mapped_column(String(10), primary_key=True)  # "2026-09-15"
+    total_orders: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    confirmed_orders: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    total_revenue_mad: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    total_upsell_mad: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    avg_order_value_mad: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    upsell_accept_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    unique_visitors: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    add_to_cart_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    checkout_started_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow, onupdate=utcnow)
+
+
 class OrderCounter(Base):
     """Single-row table for atomic order number generation."""
     __tablename__ = "order_counter"
