@@ -2,16 +2,16 @@
 @import "tailwindcss";
 
 :root {
-  --brand-green: #1F2A44;
-  --brand-green-light: #3F506F;
-  --brand-gold: #B76E4C;
-  --brand-gold-light: #D6A07E;
-  --brand-cream: #F7EFE5;
-  --brand-cream-dark: #E8EEF0;
-  --brand-sage: #DDE6E8;
-  --brand-clay: #8A4A3A;
-  --brand-text: #171C24;
-  --brand-muted: #667085;
+  --brand-green: #123C2D;
+  --brand-green-light: #1B5E3F;
+  --brand-gold: #C8A24A;
+  --brand-gold-light: #E0BE7A;
+  --brand-cream: #FAF6ED;
+  --brand-cream-dark: #F0E9D8;
+  --brand-sage: #E8F0EC;
+  --brand-clay: #8B4513;
+  --brand-text: #0F1C14;
+  --brand-muted: #5A6E5E;
 }
 
 @theme inline {

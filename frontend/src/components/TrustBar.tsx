@@ -4,21 +4,20 @@ export default function TrustBar() {
     { icon: "🚚", text: "توصيل مجاني" },
     { icon: "💳", text: "دفع عند الاستلام" },
     { icon: "🔄", text: "ضمان 30 يوم" },
-    { icon: "✨", text: "جودة مضمونة" },
+    { icon: "⭐", text: "+500 زبون راضي" },
   ];
 
   return (
-    <div
-      className="w-full overflow-x-auto py-3"
-      style={{ background: "var(--brand-green)" }}
-    >
-      <div className="flex items-center justify-center gap-6 min-w-max px-4">
+    <div className="w-full overflow-x-auto py-2.5" style={{ background: "var(--brand-gold)" }}>
+      <div className="flex items-center justify-center gap-1 min-w-max px-4">
         {items.map((item, i) => (
-          <div key={i} className="flex items-center gap-2 text-white text-sm font-medium whitespace-nowrap">
-            <span>{item.icon}</span>
-            <span className="opacity-90">{item.text}</span>
+          <div key={i} className="flex items-center gap-5">
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span className="text-base">{item.icon}</span>
+              <span className="text-sm font-bold" style={{ color: "var(--brand-green)" }}>{item.text}</span>
+            </div>
             {i < items.length - 1 && (
-              <span className="opacity-30 mr-2">|</span>
+              <span className="text-xs opacity-40 font-light" style={{ color: "var(--brand-green)" }}>✦</span>
             )}
           </div>
         ))}
