@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title=settings.APP_NAME,
+    title=settings.APP_NAME or "sehti-api",
     docs_url="/docs" if settings.APP_ENV != "production" else None,
     redoc_url=None,
     lifespan=lifespan,
