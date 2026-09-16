@@ -5,6 +5,19 @@ RUN npm ci
 
 FROM node:22-alpine AS builder
 WORKDIR /app
+
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_BACKEND_URL
+ARG NEXT_PUBLIC_META_PIXEL_ID
+ARG NEXT_PUBLIC_TIKTOK_PIXEL_ID
+ARG NEXT_PUBLIC_TRACKING_DEBUG
+
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
+ENV NEXT_PUBLIC_META_PIXEL_ID=$NEXT_PUBLIC_META_PIXEL_ID
+ENV NEXT_PUBLIC_TIKTOK_PIXEL_ID=$NEXT_PUBLIC_TIKTOK_PIXEL_ID
+ENV NEXT_PUBLIC_TRACKING_DEBUG=$NEXT_PUBLIC_TRACKING_DEBUG
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
@@ -12,8 +25,12 @@ RUN npm run build
 FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+
 EXPOSE 3000
 CMD ["node", "server.js"]
