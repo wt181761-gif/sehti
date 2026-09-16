@@ -175,20 +175,28 @@ CORS_ORIGINS=https://sehti.online,http://localhost:3000
 
 ## EasyPanel Setup
 
-Frontend service:
+### Frontend service
+- **GitHub repo:** `https://github.com/wt181761-gif/FRONTEND.git`
+- **Branch:** `main`
+- **Domain:** `sehti.online` → `http://sehti_frontend:80/`
+- **Note:** Easypanel injects `PORT=80` at runtime, Next.js runs on 80 not 3000.
 
-- Build from `frontend/`.
-- Port: `3000`.
-- Domain: `sehti.online`.
-- Add frontend env variables.
+### Backend service
+- **GitHub repo:** `https://github.com/wt181761-gif/BACKEND.git`
+- **Branch:** `main`
+- **Domain:** `api.sehti.online` → `http://sehti_backend:8000/`
 
-Backend service:
+### Cloudflare DNS (sehti.online)
+- `A` `@` → `187.124.28.208` — Proxied 🟠
+- `A` `api` → `187.124.28.208` — Proxied 🟠
+- SSL/TLS mode: **Full**
+- Do NOT have duplicate A records or Namecheap parking records.
 
-- Build from `backend/`.
-- Port: `8000`.
-- Domain: `api.sehti.online`.
-- Add backend env variables.
-- Ensure backend can reach PostgreSQL service hostname.
+### Important notes
+- Frontend runs on **port 80** (Easypanel default), NOT 3000.
+- Backend runs on **port 8000**.
+- `alembic upgrade head` runs automatically on backend startup via `entrypoint.sh`.
+- Backend env vars must include the real `DATABASE_URL` with the actual password, not `CHANGE_ME`.
 
 Database:
 
